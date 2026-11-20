@@ -11,4 +11,4 @@ class PaymentSerializer(ModelSerializer):
 class UserSerializer(ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ('id', 'email', 'password', 'username', 'phone', 'city', 'avatar', )
