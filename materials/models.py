@@ -85,3 +85,30 @@ class Lesson(models.Model):
 
     def __str__(self):
         return self.title
+
+class Subscription(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        verbose_name='Пользователь',
+    )
+    course = models.ForeignKey(
+        Course,
+        on_delete=models.CASCADE,
+        verbose_name='Курс',
+        help_text='Укажите курс',
+    )
+
+    class Meta:
+        verbose_name = 'Подписка'
+        verbose_name_plural = 'Подписки'
+        # Что бы пользователь не подписался на один и тот же курс дважды
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'course'],
+                name='unique_user_course_subscription',
+            )
+        ]
+
+    def __str__(self):
+        return f'{self.user} - {self.course}'
