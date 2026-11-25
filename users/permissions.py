@@ -18,6 +18,6 @@ class UserIsCurrent(permissions.BasePermission):
     """ Проверяет, обращается ли пользователь к своему профилю. """
 
     def has_object_permission(self, request, view, obj):
-        if obj.owner == request.user:
+        if obj == request.user:
             return True
         return False
